@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- وسوم التحقق وإدارة الموقع -->
+    <meta name="096cadffe0ed8acfd0403c9744b763069aac88b5" content="096cadffe0ed8acfd0403c9744b763069aac88b5" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <!-- كود إعلانات AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+    <title>تطبيق محفظتي</title>
+    <style>
+        :root {
+            --bg-color: #070913;
+            --card-bg: rgba(19, 28, 49, 0.7);
+            --text-color: #f8fafc;
+            --text-muted: #94a3b8;
+            --primary: #38bdf8;
+            --primary-glow: rgba(56, 189, 248, 0.3);
+            --success: #22c55e;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --border-light: rgba(51, 65, 85, 0.6);
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg-color);
+            background-image: radial-gradient(circle at 50% 0%, #1e1b4b 0%, var(--bg-color) 70%);
+            color: var(--text-color);
+            font-family: system-ui, -apple-system, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 15px;
+            box-sizing: border-box;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .ad-banner {
+            width: 100%;
+            margin-bottom: 15px;
+            min-height: 90px;
+            text-align: center;
+            background: var(--card-bg);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 5px;
+            overflow: hidden;
+        }
+
+        .header {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            padding: 15px 20px;
+            border-radius: 20px;
+            border: 1px solid var(--border-light);
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        .header h1 {
+            font-size: 18px;
+            margin: 0;
+            background: linear-gradient(45deg, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header-controls {
+            display: flex;
+            gap: 6px;
+        }
+
+        .account-select {
+            background: #0b0f19;
+            border: 1px solid var(--border-light);
+            color: var(--text-color);
+            padding: 6px 10px;
+            border-radius: 10px;
+            outline: none;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-light);
+            padding: 20px;
+            border-radius: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .balance-box {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .balance-title {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+        }
+
+        .balance-amount {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--success);
+            text-shadow: 0 0 20px rgba(34, 197, 94, 0.2);
+        }
+
+        .stats-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .stat-box {
+            flex: 1;
+            background: rgba(11, 15, 25, 0.6);
+            border: 1px solid var(--border-light);
+            padding: 12px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .stat-label { font-size: 11px; color: var(--text-muted); margin-bottom: 4px; }
+        .stat-val { font-size: 14px; font-weight: bold; }
+        .income-val { color: var(--success); }
+        .expense-val { color: var(--danger); }
+        .installment-val { color: var(--warning); }
+
+        .form-group {
+            margin-bottom: 12px;
+            text-align: right;
+        }
+
+        label {
+            display: block;
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+        }
+
+        input, select {
+            width: 100%;
+            background: rgba(11, 15, 25, 0.8);
+            border: 1px solid var(--border-light);
+            color: var(--text-color);
+            padding: 11px;
+            border-radius: 10px;
+            outline: none;
+            font-family: inherit;
+            font-size: 13px;
+            box-sizing: border-box;
+            transition: 0.2s;
+        }
+
+        input:focus, select:focus { 
+            border-color: var(--primary);
+            box-shadow: 0 0 10px var(--primary-glow);
+        }
+
+        .btn {
+            width: 100%;
+            background: linear-gradient(135deg, #38bdf8, #0284c7);
+            color: #0f172a;
+            border: none;
+            padding: 12px;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 5px;
+            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.3);
+        }
+
+        .btn:hover { transform: translateY(-1px); opacity: 0.9; }
+        .btn-success { background: linear-gradient(135deg, #22c55e, #15803d); color: #fff; }
+        .btn-warning { background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; }
+        .btn-danger { background: var(--danger); color: #fff; padding: 6px 12px; font-size: 11px; margin-top: 0; width: auto; border-radius: 8px; }
+        .btn-secondary { background: rgba(51, 65, 85, 0.6); color: var(--text-color); padding: 6px 12px; font-size: 11px; width: auto; margin-top: 0; border-radius: 8px; border: 1px solid var(--border-light); }
+
+        .section-title {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 12px;
+            color: var(--text-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .list-container {
+            max-height: 190px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding-left: 4px;
+        }
+
+        .item-box {
+            background: rgba(11, 15, 25, 0.6);
+            border: 1px solid var(--border-light);
+            padding: 12px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .item-info { text-align: right; }
+        .item-title { font-size: 13px; font-weight: bold; }
+        .item-sub { font-size: 10px; color: var(--text-muted); margin-top: 2px; }
+        
+        .item-side { text-align: left; display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+        .item-val { font-size: 13px; font-weight: bold; }
+        .item-subval { font-size: 11px; font-weight: bold; }
+
+        .text-up { color: var(--success); }
+        .text-down { color: var(--danger); }
+        .text-warning { color: var(--warning); }
+
+        .empty-msg {
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-muted);
+            padding: 15px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 15px;
+            background: rgba(11, 15, 25, 0.8);
+            padding: 4px;
+            border-radius: 14px;
+            border: 1px solid var(--border-light);
+        }
+
+        .tab-btn {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 8px;
+            font-size: 11px;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: #0f172a;
+            box-shadow: 0 0 15px var(--primary-glow);
+        }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- إعلان علوي -->
+        <div class="ad-banner">
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <!-- شريط العنوان وإدارة الحسابات -->
+        <div class="header">
+            <h1>💎 محفظتي</h1>
+            <div class="header-controls">
+                <select class="account-select" id="accountSelect" onchange="switchAccount()"></select>
+                <button class="btn btn-secondary" onclick="openAddAccountModal()">+ حساب</button>
+            </div>
+        </div>
+
+        <!-- تبويبات التنقل -->
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('wallet', this)">الرئيسية</button>
+            <button class="tab-btn" onclick="switchTab('installments', this)">الأقساط 💳</button>
+            <button class="tab-btn" onclick="switchTab('market', this)">سوق الأسهم</button>
+            <button class="tab-btn" onclick="switchTab('assets', this)">الأصول</button>
+        </div>
+
+        <!-- تبويب الرئيسية -->
+        <div id="tab-wallet" class="tab-content active">
+            <div class="card">
+                <div class="balance-box">
+                    <div class="balance-title">الرصيد المتاح للحساب الحالي</div>
+                    <div class="balance-amount" id="totalBalance">0.00 ر.س</div>
+                </div>
+
+                <div class="stats-row">
+                    <div class="stat-box">
+                        <div class="stat-label">إجمالي الدخل</div>
+                        <div class="stat-val income-val" id="totalIncome">0.00 ر.س</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">المصروفات</div>
+                        <div class="stat-val expense-val" id="totalExpense">0.00 ر.س</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">الأقساط المتبقية</div>
+                        <div class="stat-val installment-val" id="totalInstallmentsSum">0.00 ر.س</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- إضافة معاملة مالية -->
+            <div class="card">
+                <div class="section-title">➕ إضافة معاملة مالية</div>
+                <div class="form-group">
+                    <label>نوع المعاملة</label>
+                    <select id="transType">
+                        <option value="income">إيراد / دخل 🟢</option>
+                        <option value="expense">مصروف 🔴</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>وصف المعاملة</label>
+                    <input type="text" id="transName" placeholder="مثال: راتب، فاتورة...">
+                </div>
+                <div class="form-group">
+                    <label>المبلغ (ر.س)</label>
+                    <input type="number" id="transAmount" placeholder="0.00">
+                </div>
+                <button class="btn" onclick="addTransaction()">حفظ المعاملة 📝</button>
+            </div>
+
+            <!-- سجل الحركات -->
+            <div class="card">
+                <div class="section-title">
+                    <span>📜 سجل الحركات المالية</span>
+                    <button class="btn btn-secondary" onclick="clearTransactions()" style="padding: 3px 8px; font-size: 10px;">مسح السجل</button>
+                </div>
+                <div class="list-container" id="transList">
+                    <div class="empty-msg">لا توجد حركات مسجلة</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- تبويب الأقساط الجديدة -->
+        <div id="tab-installments" class="tab-content">
+            <div class="card">
+                <div class="section-title">💳 إضافة قسط جديد (على كم و ايش)</div>
+                <div class="form-group">
+                    <label>وصف القسط (إيش اشتريت أو التزام ايش؟)</label>
+                    <input type="text" id="instName" placeholder="مثال: قسط الجوال، اجهزة تكييف...">
+                </div>
+                <div class="form-group">
+                    <label>قسط الشهر الواحد (كم المبلغ؟)</label>
+                    <input type="number" id="instMonthly" placeholder="0.00">
+                </div>
+                <div class="form-group">
+                    <label>عدد الأقساط الكلي (على كم شهر؟)</label>
+                    <input type="number" id="instMonthsCount" placeholder="12" min="1">
+                </div>
+                <button class="btn btn-warning" onclick="addInstallment()">إضافة القسط للالتزامات 📋</button>
+            </div>
+
+            <div class="card">
+                <div class="section-title">📊 جدول الأقساط الحالية (خصم ومتابعة)</div>
+                <div class="list-container" id="installmentsList">
+                    <div class="empty-msg">لا توجد أقساط مسجلة حالياً</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- تبويب سوق الأسهم -->
+        <div id="tab-market" class="tab-content">
+            <div class="card">
+                <div class="section-title">📈 شراء أصول أسهم حية</div>
+                <div class="form-group">
+                    <label>اختر السهم</label>
+                    <select id="buyStockSelect"></select>
+                </div>
+                <div class="form-group">
+                    <label>عدد الأسهم</label>
+                    <input type="number" id="buySharesCount" min="1" value="1">
+                </div>
+                <button class="btn btn-success" onclick="buyStockAsset()">شراء وتحويل لأصول 🛒</button>
+            </div>
+            <div class="card">
+                <div class="section-title">⚡ أسعار السوق المباشرة</div>
+                <div class="list-container" id="marketList"></div>
+            </div>
+        </div>
+
+        <!-- تبويب الأصول المملوكة -->
+        <div id="tab-assets" class="tab-content">
+            <div class="card">
+                <div class="section-title">🏛️ محفظة الأصول الاستثمارية (إمكانية البيع)</div>
+                <div class="list-container" id="assetsList">
+                    <div class="empty-msg">لا توجد أصول مشتراة</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- إعلان سفلي -->
+        <div class="ad-banner">
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+    </div>
+
+    <script>
+        let walletData = JSON.parse(localStorage.getItem('my_wallet_with_installments')) || {
+            accounts: {
+                personal: { name: "المحفظة الشخصية", transactions: [], assets: [], installments: [] }
+            },
+            current: "personal"
+        };
+
+        let marketStocks = [
+            { id: 'AAPL', name: 'أبل (Apple)', price: 185.50, change: 1.25 },
+            { id: 'TSLA', name: 'تسلا (Tesla)', price: 210.30, change: -2.40 },
+            { id: 'AMZN', name: 'أمازون (Amazon)', price: 145.80, change: 0.90 },
+            { id: 'MSFT', name: 'مايكروسوفت (Microsoft)', price: 415.20, change: 3.10 }
+        ];
+
+        function switchTab(tabId, btn) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            document.getElementById('tab-' + tabId).classList.add('active');
+            btn.classList.add('active');
+        }
+
+        function initAccountsDropdown() {
+            let select = document.getElementById('accountSelect');
+            select.innerHTML = '';
+            for (let key in walletData.accounts) {
+                let opt = document.createElement('option');
+                opt.value = key;
+                opt.text = walletData.accounts[key].name;
+                if (key === walletData.current) opt.selected = true;
+                select.appendChild(opt);
+            }
+        }
+
+        function switchAccount() {
+            walletData.current = document.getElementById('accountSelect').value;
+            saveAndRefresh();
+        }
+
+        function openAddAccountModal() {
+            let accName = prompt("أدخل اسم الحساب الجديد:");
+            if (!accName || accName.trim() === "") return;
+            let key = 'acc_' + Date.now();
+            walletData.accounts[key] = { name: accName.trim(), transactions: [], assets: [], installments: [] };
+            walletData.current = key;
+            saveAndRefresh();
+        }
+
+        function addInstallment() {
+            let name = document.getElementById('instName').value.trim();
+            let monthly = parseFloat(document.getElementById('instMonthly').value);
+            let totalMonths = parseInt(document.getElementById('instMonthsCount').value);
+
+            if (!name || isNaN(monthly) || monthly <= 0 || isNaN(totalMonths) || totalMonths <= 0) {
+                alert('الرجاء تعبئة تفاصيل القسط بشكل صحيح.');
+                return;
+            }
+
+            let currentAcc = walletData.accounts[walletData.current];
+            currentAcc.installments.push({
+                id: 'inst_' + Date.now(),
+                name: name,
+                monthly: monthly,
+                remainingMonths: totalMonths,
+                totalMonths: totalMonths
+            });
+
+            saveAndRefresh();
+            document.getElementById('instName').value = '';
+            document.getElementById('instMonthly').value = '';
+            document.getElementById('instMonthsCount').value = '';
+            alert('تم إضافة القسط بنجاح!');
+        }
+
+        function payInstallment(instId) {
+            let currentAcc = walletData.accounts[walletData.current];
+            let inst = currentAcc.installments.find(i => i.id === instId);
+            if (!inst || inst.remainingMonths <= 0) return;
+
+            currentAcc.transactions.unshift({
+                type: 'expense',
+                name: `قسط: ${inst.name} (المتبقي ${inst.remainingMonths - 1} أشهر)`,
+                amount: inst.monthly,
+                date: new Date().toLocaleDateString('ar-SA')
+            });
+
+            inst.remainingMonths -= 1;
+
+            if (inst.remainingMonths === 0) {
+                currentAcc.installments = currentAcc.installments.filter(i => i.id !== instId);
+                alert('مبروك! تم تسديد جميع أقساط هذا الالتزام بالكامل.');
+            } else {
+                alert(`تم خصم قسط ${inst.name} بنجاح. يتبقى ${inst.remainingMonths} أقساط.`);
+            }
+
+            saveAndRefresh();
+        }
+
+        function addTransaction() {
+            let type = document.getElementById('transType').value;
+            let name = document.getElementById('transName').value.trim();
+            let amount = parseFloat(document.getElementById('transAmount').value);
+
+            if (!name || isNaN(amount) || amount <= 0) {
+                alert('الرجاء إدخال بيانات صحيحة.');
+                return;
+            }
+
+            walletData.accounts[walletData.current].transactions.unshift({
+                type: type,
+                name: name,
+                amount: amount,
+                date: new Date().toLocaleDateString('ar-SA')
+            });
+
+            saveAndRefresh();
+            document.getElementById('transName').value = '';
+            document.getElementById('transAmount').value = '';
+        }
+
+        function buyStockAsset() {
+            let stockId = document.getElementById('buyStockSelect').value;
+            let count = parseInt(document.getElementById('buySharesCount').value);
+            let stock = marketStocks.find(s => s.id === stockId);
+            let totalCost = stock.price * count;
+            let currentAcc = walletData.accounts[walletData.current];
+
+            let income = currentAcc.transactions.filter(t => t.type === 'income').reduce((sum, t) => sum + t.amount, 0);
+            let expense = currentAcc.transactions.filter(t => t.type === 'expense').reduce((sum, t) => sum + t.amount, 0);
+            if (totalCost > (income - expense)) { alert('رصيد الحساب غير كافٍ!'); return; }
+
+            currentAcc.transactions.unshift({ type: 'expense', name: `شراء ${count} سهم من ${stock.name}`, amount: totalCost, date: new Date().toLocaleDateString('ar-SA') });
+            
+            let existing = currentAcc.assets.find(a => a.id === stockId);
+            if (existing) {
+                let oldVal = existing.shares * existing.buyPrice;
+                existing.shares += count;
+                existing.buyPrice = (oldVal + totalCost) / existing.shares;
+            } else {
+                currentAcc.assets.push({ id: stockId, name: stock.name, shares: count, buyPrice: stock.price });
+            }
+            saveAndRefresh();
+            alert('تم الشراء بنجاح!');
+        }
+
+        function sellStockAsset(stockId) {
+            let currentAcc = walletData.accounts[walletData.current];
+            let index = currentAcc.assets.findIndex(a => a.id === stockId);
+            if (index === -1) return;
+            let asset = currentAcc.assets[index];
+            let stock = marketStocks.find(s => s.id === stockId);
+            let totalVal = asset.shares * stock.price;
+
+            currentAcc.transactions.unshift({ type: 'income', name: `بيع ${asset.shares} سهم من ${asset.name}`, amount: totalVal, date: new Date().toLocaleDateString('ar-SA') });
+            currentAcc.assets.splice(index, 1);
+            saveAndRefresh();
+            alert(`تم بيع الأصول وإضافة $${totalVal.toFixed(2)} لرصيدك!`);
+        }
+
+        function clearTransactions() {
+            if(confirm('مسح سجل المعاملات؟')) {
+                walletData.accounts[walletData.current].transactions = [];
+                saveAndRefresh();
+            }
+        }
+
+        function saveAndRefresh() {
+            localStorage.setItem('my_wallet_with_installments', JSON.stringify(walletData));
+            initAccountsDropdown();
+            updateUI();
+        }
+
+        function updateUI() {
+            let currentAcc = walletData.accounts[walletData.current];
+            if (!currentAcc) return;
+
+            let txs = currentAcc.transactions;
+            let income = txs.filter(t => t.type === 'income').reduce((sum, t) => sum + t.amount, 0);
+            let expense = txs.filter(t => t.type === 'expense').reduce((sum, t) => sum + t.amount, 0);
+            let balance = income - expense;
+
+            let totalInstallmentsValue = currentAcc.installments.reduce((sum, i) => sum + (i.monthly * i.remainingMonths), 0);
+
+            document.getElementById('totalBalance').innerText = `${balance.toFixed(2)} ر.س`;
+            document.getElementById('totalIncome').innerText = `${income.toFixed(2)} ر.س`;
+            document.getElementById('totalExpense').innerText = `${expense.toFixed(2)} ر.س`;
+            document.getElementById('totalInstallmentsSum').innerText =`${totalInstallmentsValue.toFixed(2)} ر.س`;
+
+            let transHTML = txs.length === 0 ? '<div class="empty-msg">لا توجد حركات مسجلة</div>' : '';
+            txs.forEach(tx => {
+                let cls = tx.type === 'income' ? 'text-up' : 'text-down';
+                transHTML += `
+                    <div class="item-box">
+                        <div class="item-info">
+                            <div class="item-title">${tx.name}</div>
+                            <div class="item-sub">${tx.date}</div>
+                        </div>
+                        <div class="item-val ${cls}">${tx.type === 'income' ? '+' : '-'}${tx.amount.toFixed(2)} ر.س</div>
+                    </div>
+                `;
+            });
+            document.getElementById('transList').innerHTML = transHTML;
+
+            let instHTML = currentAcc.installments.length === 0 ? '<div class="empty-msg">لا توجد أقساط مسجلة حالياً</div>' : '';
+            currentAcc.installments.forEach(inst => {
+                instHTML += `
+                    <div class="item-box">
+                        <div class="item-info">
+                            <div class="item-title">📦 ${inst.name}</div>
+                            <div class="item-sub">قسط شهري: ${inst.monthly} ر.س | متبقي: ${inst.remainingMonths} من ${inst.totalMonths} أشهر</div>
+                        </div>
+                        <div class="item-side">
+                            <div class="item-val text-warning">${(inst.monthly * inst.remainingMonths).toFixed(2)} ر.س</div>
+                            <button class="btn btn-warning" style="padding: 4px 10px; font-size: 10px;" onclick="payInstallment('${inst.id}')">خصم القسط الشهر 💳</button>
+                        </div>
+                    </div>
+                `;
+            });
+            document.getElementById('installmentsList').innerHTML = instHTML;
+
+            let assetsHTML = currentAcc.assets.length === 0 ? '<div class="empty-msg">لا توجد أصول مشتراة</div>' : '';
+            currentAcc.assets.forEach(asset => {
+                let marketStock = marketStocks.find(s => s.id === asset.id);
+                let currentVal = asset.shares * marketStock.price;
+                let pl = currentVal - (asset.shares * asset.buyPrice);
+                assetsHTML += `
+                    <div class="item-box">
+                        <div class="item-info">
+                            <div class="item-title">${asset.name}</div>
+                            <div class="item-sub">الكمية: ${asset.shares} | شراء: $${asset.buyPrice.toFixed(2)}</div>
+                        </div>
+                        <div class="item-side">
+                            <div class="item-val">$${currentVal.toFixed(2)}</div>
+                            <div class="item-subval ${pl >= 0 ? 'text-up' : 'text-down'}">${pl >= 0 ? '+' : ''}$${pl.toFixed(2)}</div>
+                            <button class="btn btn-danger" onclick="sellStockAsset('${asset.id}')">بيع الكل 💵</button>
+                        </div>
+                    </div>
+                `;
+            });
+            document.getElementById('assetsList').innerHTML = assetsHTML;
+        }
+
+        function renderMarket() {
+            let marketHTML = '';
+            let selectHTML = '';
+            marketStocks.forEach(stock => {
+                marketHTML += `
+                    <div class="item-box">
+                        <div class="item-info">
+                            <div class="item-title">${stock.name}</div>
+                            <div class="item-sub">${stock.id}</div>
+                        </div>
+                        <div class="item-side">
+                            <div class="item-val">$${stock.price.toFixed(2)}</div>
+                            <div class="item-subval ${stock.change >= 0 ? 'text-up' : 'text-down'}">${stock.change >= 0 ? '+' : ''}${stock.change}%</div>
+                        </div>
+                    </div>
+                `;
+                selectHTML += `<option value="${stock.id}">${stock.name} - ($${stock.price.toFixed(2)})</option>`;
+            });
+            document.getElementById('marketList').innerHTML = marketHTML;
+            document.getElementById('buyStockSelect').innerHTML = selectHTML;
+        }
+
+        initAccountsDropdown();
+        renderMarket();
+        updateUI();
+    </script>
+</body>
+</html>
