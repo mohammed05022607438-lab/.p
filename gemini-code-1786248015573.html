@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تطبيق المحفظة الرقمية</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, sans-serif; }
+        body { background: #0f172a; color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+        .wallet-container { background: #1e293b; border: 1px solid #334155; border-radius: 20px; width: 100%; max-width: 400px; padding: 25px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
+        
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+        .header h2 { font-size: 20px; color: #38bdf8; }
+        
+        .card-balance { background: linear-gradient(135deg, #0284c7, #2563eb); border-radius: 15px; padding: 20px; margin-bottom: 25px; text-align: center; }
+        .card-balance p { color: #e2e8f0; font-size: 14px; margin-bottom: 5px; }
+        .card-balance h1 { font-size: 32px; color: #fff; font-weight: bold; }
+        
+        .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 25px; }
+        .actions button { padding: 12px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 14px; transition: 0.2s; }
+        .btn-deposit { background: #22c55e; color: #fff; }
+        .btn-deposit:hover { background: #16a34a; }
+        .btn-withdraw { background: #ef4444; color: #fff; }
+        .btn-withdraw:hover { background: #dc2626; }
+        
+        .form-group { margin-bottom: 15px; }
+        .form-group input { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #475569; background: #0f172a; color: #fff; font-size: 14px; outline: none; }
+        .form-group input:focus { border-color: #38bdf8; }
+        
+        .history-title { font-size: 16px; margin-bottom: 10px; color: #94a3b8; border-bottom: 1px solid #334155; padding-bottom: 5px; }
+        .history-list { max-height: 150px; overflow-y: auto; font-size: 13px; }
+        .history-item { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #334155/50; }
+        .history-item.deposit { color: #22c55e; }
+        .history-item.withdraw { color: #ef4444; }
+    </style>
+</head>
+<body>
+
+    <div class="wallet-container">
+        <div class="header">
+            <h2>💳 محفظتي الرقمية</h2>
+            <span style="font-size: 12px; color: #94a3b8;" id="currentDate"></span>
+        </div>
+
+        <div class="card-balance">
+            <p>الرصيد الحالي</p>
+            <h1 id="balance">500.00 ريال</h1>
+        </div>
+
+        <div class="form-group">
+            <input type="number" id="amount" placeholder="أدخل المبلغ...">
+        </div>
+
+        <div class="actions">
+            <button class="btn-deposit" onclick="deposit()">إيداع ➕</button>
+            <button class="btn-withdraw" onclick="withdraw()">سحب ➖</button>
+        </div>
+
+        <div class="history-title">سجل المعاملات</div>
+        <div class="history-list" id="historyList">
+            <div class="history-item">لا توجد معاملات سابقة</div>
+        </div>
+    </div>
+
+    <script>
+        let balance = 500.00;
+        let transactions = [];
+
+        document.getElementById('currentDate').innerText = new Date().toLocaleDateString('ar-SA');
+
+        function updateUI() {
+            document.getElementById('balance').innerText = balance.toFixed(2) + ' ريال';
+            let listHTML = '';
+            
+            if(transactions.length === 0) {
+                listHTML = '<div class="history-item" style="color: #94a3b8;">لا توجد معاملات سابقة</div>';
+            } else {
+                transactions.forEach(tx => {
+                    let sign = tx.type === 'deposit' ? '+' : '-';
+                    let className = tx.type === 'deposit' ? 'deposit' : 'withdraw';
+                    listHTML += `<div class="history-item ${className}">
+                        <span>${tx.text}</span>
+                        <span>${sign}${tx.amount.toFixed(2)} ريال</span>
+                    </div>`;
+                });
+            }
+            document.getElementById('historyList').innerHTML = listHTML;
+        }
+
+        function deposit() {
+            let val = parseFloat(document.getElementById('amount').value);
+            if(isNaN(val) || val <= 0) {
+                alert('الرجاء إدخال مبلغ صحيح للإيداع!');
+                return;
+            }
+            balance += val;
+            transactions.unshift({ type: 'deposit', text: 'إيداع رصيد', amount: val });
+            document.getElementById('amount').value = '';
+            updateUI();
+        }
+
+        function withdraw() {
+            let val = parseFloat(document.getElementById('amount').value);
+            if(isNaN(val) || val <= 0) {
+                alert('الرجاء إدخال مبلغ صحيح للسحب!');
+                return;
+            }
+            if(val > balance) {
+                alert('عذراً، رصيدك غير كافٍ!');
+                return;
+            }
+            balance -= val;
+            transactions.unshift({ type: 'withdraw', text: 'سحب رصيد', amount: val });
+            document.getElementById('amount').value = '';
+            updateUI();
+        }
+    </script>
+</body>
+</html>
